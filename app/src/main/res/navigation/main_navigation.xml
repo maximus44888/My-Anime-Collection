@@ -3,11 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/blankFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="pujalte.martinez.juan.projectosegundaevaluacion.BlankFragment"
-        android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        android:id="@+id/loginFragment"
+        android:name="pujalte.martinez.juan.projectosegundaevaluacion.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_scaffoldFragment"
+            app:destination="@id/scaffoldFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="pujalte.martinez.juan.projectosegundaevaluacion.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scaffoldFragment"
+        android:name="pujalte.martinez.juan.projectosegundaevaluacion.ScaffoldFragment"
+        android:label="fragment_scaffold"
+        tools:layout="@layout/fragment_scaffold" >
+        <action
+            android:id="@+id/action_scaffoldFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
