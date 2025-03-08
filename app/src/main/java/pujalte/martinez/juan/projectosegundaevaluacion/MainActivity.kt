@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.findNavController
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,5 +20,10 @@ class MainActivity : AppCompatActivity() {
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 			insets
 		}
+	}
+	
+	override fun onSupportNavigateUp(): Boolean {
+		val navController = findNavController(R.id.main)
+		return navController.navigateUp() || super.onSupportNavigateUp()
 	}
 }
