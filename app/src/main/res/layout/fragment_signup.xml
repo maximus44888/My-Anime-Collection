@@ -2,35 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/fragment_signup_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignupFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/fragment_signup_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello Signup Fragment"
-        app:layout_constraintBottom_toTopOf="@id/buttons"
+        app:layout_constraintBottom_toTopOf="@id/fragment_signup_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/buttons"
+        android:id="@+id/fragment_signup_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView">
+        app:layout_constraintTop_toBottomOf="@id/fragment_signup_text_view">
 
         <Button
-            android:id="@+id/signup"
+            android:id="@+id/fragment_signup_signup_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign up" />
