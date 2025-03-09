@@ -1,20 +1,16 @@
 package pujalte.martinez.juan.projectosegundaevaluacion
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentScaffoldBinding
 
 class ScaffoldFragment : Fragment() {
 	private lateinit var binding: FragmentScaffoldBinding
-	
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-	}
+	private val navController by lazy { binding.fragmentScaffoldFragmentContainerView.findNavController() }
 	
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +24,29 @@ class ScaffoldFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		
-		binding.logout.setOnClickListener {
-			findNavController().navigate(R.id.action_scaffoldFragment_to_loginFragment)
-		}
-		
-		binding.list.setOnClickListener {
-			binding.fragmentContainerView.findNavController().navigate(R.id.listFragment)
-		}
-		binding.favorites.setOnClickListener {
-			binding.fragmentContainerView.findNavController().navigate(R.id.favoritesFragment)
-		}
-		binding.contact.setOnClickListener {
-			binding.fragmentContainerView.findNavController().navigate(R.id.contactFragment)
+		setupBottomNavigationView()
+	}
+	
+	private fun setupBottomNavigationView() {
+		binding.fragmentScaffoldBottomNavigationView.setOnItemSelectedListener {
+			when (it.itemId) {
+				R.id.bottom_navigation_view_menu_item_list -> {
+					navController.navigate(R.id.listFragment)
+					true
+				}
+				
+				R.id.bottom_navigation_view_menu_item_favorites -> {
+					navController.navigate(R.id.favoritesFragment)
+					true
+				}
+				
+				R.id.bottom_navigation_view_menu_item_contact -> {
+					navController.navigate(R.id.contactFragment)
+					true
+				}
+				
+				else -> false
+			}
 		}
 	}
 }
