@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+
+    <string name="userInputEditTextHint">Usuario</string>
+    <string name="passwordInputEditTextHint">Contraseña</string>
+    <string name="forgotPasswordButton">¿Olvidaste tu contraseña?</string>
+    <string name="loginButton">Iniciar sesión</string>
+    <string name="signupButton">Registrarse</string>
+    <string name="thirdPartySeparator">o</string>
+    <string name="googleLoginButton">Iniciar sesión con Google</string>
+    <string name="facebookLoginButton">Iniciar sesión con Facebook</string>
+    <string name="cant_be_empty">No puede estar vacio</string>
+    <string name="login_snackbar_text">¿Quieres ir a la acción RV?</string>
+    <string name="snackbar_goto_action_text">Ir</string>
+    <string name="third_party_login_snackbar_text">¿Quieres ir a la acción Contact?</string>
+    <string name="rv_activity_top_app_bar_title">Acción RV</string>
+    <string name="item_default_title">Título</string>
+    <string name="item_fav_button_content_description">Boton de favorito del item</string>
+    <string name="item_default_description">Descripción</string>
+    <string name="default_rationale_permission">Los permisos necesarios han sido denegados y por tanto esta funcionalidad no esta disponible</string>
+    <string name="default_rationale_unavailability">La funcionalidad no estará disponible ya que has denegado los permisos</string>
+    <string name="default_unable_to_resolve_activity_message">No se ha podido encontrar ninguna aplicación que pueda manejar esta funcionalidad</string>
+    <string name="whatsapp_unable_to_resolve_activity_message">Unable to find WhatsApp app. Consider installing it</string>
+    <string name="phone_rationale_permission">Para llamar, la aplicación necesita permisos de llamada</string>
+    <string name="phone_rationale_unavailability">No podras hacer llamadas ya que has denegado el permiso de llamada</string>
+    <string name="phone_unable_to_resolve_activity_message">No se ha podido encontrar ninguna aplicación para poder llamar</string>
+    <string name="email_unable_to_resolve_activity_message">No se ha podido encontrar ninguna aplicación para poder mandar un correo</string>
+    <string name="location_rationale_permission">Para ver el mapa, la aplicación necesita permisos de localización</string>
+    <string name="location_rationale_unavailability">No podras ver el mapa ya que has denegado el permiso de localización</string>
+    <string name="location_unable_to_resolve_activity_message">No se ha podido encontrar ninguna aplicación para poder ver el mapa</string>
+    <string name="naruto_description">Naruto Uzumaki, un ninja hiperactivo y testarudo, vive en Konohagakure, la aldea oculta de la hoja. Momentos antes de su nacimiento, un enorme demonio conocido como el Kyuubi, el Zorro de Nueve Colas, atacó Konohagakure y causó estragos.</string>
+    <string name="one_piece_description">Gold Roger era conocido como el Rey de los Piratas, el ser más fuerte y famoso que navegó la Gran Línea. La captura y ejecución de Roger por parte del Gobierno Mundial provocó un cambio en todo el mundo.</string>
+    <string name="bleach_description">Ichigo Kurosaki es un estudiante de secundaria bastante normal, excepto por el hecho de que puede ver fantasmas. Esta habilidad nunca afectó su vida de manera importante hasta el día en que encuentra a la Shinigami Kuchiki Rukia.</string>
+    <string name="dragon_ball_description">Goku Son es un joven que vive solo en el bosque hasta que Bulma se cruza con él en su búsqueda de unos objetos mágicos llamados las "Esferas del Dragón". Se dice que los artefactos conceden un deseo a quien reúna las siete.</string>
+    <string name="fairy_tail_description">A lo largo del reino de Fiore, los magos se unen a gremios y ganan su sustento cumpliendo necesidades mágicas, pero hay un gremio con la reputación de ser el más rudo, alborotador y peligroso de todos: ¡Fairy Tail!</string>
+    <string name="one_punch_man_description">Saitama tiene un pasatiempo peculiar: ser un superhéroe. Pero, a pesar de sus heroicas hazañas y habilidades sobrehumanas, una sombra se cierne sobre su vida. Se ha vuelto demasiado poderoso, al punto de que cada oponente termina derrotado con un solo golpe.</string>
+    <string name="hunter_x_hunter_description">Un Cazador es alguien que recorre el mundo realizando todo tipo de tareas peligrosas, desde capturar criminales hasta explorar tierras inexploradas en busca de tesoros perdidos. Gon es un joven cuyo padre, un Cazador, desapareció hace mucho tiempo.</string>
+    <string name="tokyo_ghoul_description">La historia de suspense, horror y fantasía oscura se desarrolla en Tokio, una ciudad acechada por misteriosos "ghouls" que devoran humanos. Las personas viven aterrorizadas por estos ghouls, cuyas identidades están envueltas en misterio.</string>
+    <string name="death_note_description">Light Yagami es un genio estudiante de secundaria a punto de aprender sobre la vida a través de un libro de la muerte. Cuando un shinigami aburrido, un Dios de la Muerte, deja caer un cuaderno negro llamado Death Note, Light obtiene el poder sobre la vida y la muerte con el trazo de un bolígrafo.</string>
+    <string name="attack_on_titan_description">Hace varios cientos de años, los humanos casi fueron exterminados por los titanes. Los titanes son típicamente de varios pisos de altura, parecen no tener inteligencia, devoran seres humanos y, lo peor de todo, parecen hacerlo por placer y no como una fuente de alimento.</string>
+</resources>
