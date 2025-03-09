@@ -10,12 +10,13 @@ import pujalte.martinez.juan.projectosegundaevaluacion.databinding.ActivityMainB
 
 class MainActivity : AppCompatActivity() {
 	private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+	private val navController by lazy { binding.activityMainRoot.findNavController() }
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		enableEdgeToEdge()
 		setContentView(binding.root)
-		ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+		ViewCompat.setOnApplyWindowInsetsListener(binding.activityMainRoot) { v, insets ->
 			val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 			insets
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 	}
 	
 	override fun onSupportNavigateUp(): Boolean {
-		val navController = findNavController(R.id.main)
 		return navController.navigateUp() || super.onSupportNavigateUp()
 	}
 }
