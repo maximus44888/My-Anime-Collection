@@ -8,18 +8,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentScaffoldBinding
 
 class ScaffoldFragment : Fragment() {
 	private lateinit var binding: FragmentScaffoldBinding
-	private val navController by lazy { binding.fragmentScaffoldFragmentContainerView.findNavController() }
+	private val navController by lazy { (childFragmentManager.findFragmentById(R.id.fragment_scaffold_fragment_container_view) as NavHostFragment).navController }
 	
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,8 @@ class ScaffoldFragment : Fragment() {
 		
 		setupMaterialToolbar()
 		
+		setupNavigationView()
+		
 		setupBottomNavigationView()
 	}
 	
@@ -44,8 +50,6 @@ class ScaffoldFragment : Fragment() {
 		binding.fragmentScaffoldMaterialToolbar.setNavigationOnClickListener {
 			findNavController().navigateUp()
 		}
-		
-		binding.fragmentScaffoldMaterialToolbar.title = ""
 		
 		activity?.addMenuProvider(object : MenuProvider {
 			override fun onCreateMenu(
@@ -93,26 +97,39 @@ class ScaffoldFragment : Fragment() {
 		}, viewLifecycleOwner, Lifecycle.State.RESUMED)
 	}
 	
-	private fun setupBottomNavigationView() {
-		binding.fragmentScaffoldBottomNavigationView.setOnItemSelectedListener {
+	private fun setupNavigationView() {
+		setupActionBarWithNavController(
+			activity as AppCompatActivity,
+			navController,
+			AppBarConfiguration(
+				setOf(R.id.navigation_list, R.id.navigation_favorites, R.id.navigation_contact),
+				binding.fragmentScaffoldDrawerLayout
+			)
+		)
+		binding.fragmentScaffoldNavigationView.setupWithNavController(navController)
+		/*binding.fragmentScaffoldNavigationView.setNavigationItemSelectedListener {
 			when (it.itemId) {
-				R.id.bottom_navigation_view_menu_item_list -> {
-					navController.navigate(R.id.listFragment)
+				R.id.navigation_logout -> {
+					binding.fragmentScaffoldDrawerLayout.closeDrawers()
+					findNavController().navigate(R.id.action_scaffoldFragment_to_loginFragment)
 					true
 				}
-				
-				R.id.bottom_navigation_view_menu_item_favorites -> {
-					navController.navigate(R.id.favoritesFragment)
-					true
-				}
-				
-				R.id.bottom_navigation_view_menu_item_contact -> {
-					navController.navigate(R.id.contactFragment)
-					true
-				}
-				
 				else -> false
 			}
-		}
+		}*/
+		
+		val toggle = ActionBarDrawerToggle(
+			activity,
+			binding.fragmentScaffoldDrawerLayout,
+			binding.fragmentScaffoldMaterialToolbar,
+			R.string.navigation_drawer_open,
+			R.string.navigation_drawer_close
+		)
+		binding.fragmentScaffoldDrawerLayout.addDrawerListener(toggle)
+		toggle.syncState()
+	}
+	
+	private fun setupBottomNavigationView() {
+		binding.fragmentScaffoldBottomNavigationView.setupWithNavController(navController)
 	}
 }

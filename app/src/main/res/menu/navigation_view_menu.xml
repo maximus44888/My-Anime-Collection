@@ -5,15 +5,17 @@
         android:id="@+id/navigation_list"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="List" />
-
     <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="Favorites" />
-
     <item
         android:id="@+id/navigation_contact"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="Contact" />
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Log out" />
 
 </menu>

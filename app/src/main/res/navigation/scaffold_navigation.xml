@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scaffold_navigation"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/navigation_list">
 
     <fragment
-        android:id="@+id/listFragment"
+        android:id="@+id/navigation_list"
         android:name="pujalte.martinez.juan.projectosegundaevaluacion.ListFragment"
-        android:label="fragment_list"
+        android:label="List"
         tools:layout="@layout/fragment_list" />
     <fragment
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/navigation_favorites"
         android:name="pujalte.martinez.juan.projectosegundaevaluacion.FavoritesFragment"
-        android:label="fragment_favorites"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
-        android:id="@+id/contactFragment"
+        android:id="@+id/navigation_contact"
         android:name="pujalte.martinez.juan.projectosegundaevaluacion.ContactFragment"
-        android:label="fragment_contact"
+        android:label="Contact"
         tools:layout="@layout/fragment_contact" />
 </navigation>
