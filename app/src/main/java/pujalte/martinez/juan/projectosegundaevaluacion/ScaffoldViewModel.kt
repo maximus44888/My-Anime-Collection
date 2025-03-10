@@ -13,4 +13,17 @@ class ScaffoldViewModel : ViewModel() {
 	fun setData(items: List<Item>) {
 		_data.value = items
 	}
+	
+	fun toggleFavorite(item: Item) {
+		val currentList = _data.value?.toMutableList() ?: mutableListOf()
+		val index = currentList.indexOfFirst { it == item }
+		
+		if (index != -1) {
+			val currentItem = currentList[index]
+			currentList[index] = currentItem.copy(
+				isFavorite = !currentItem.isFavorite
+			)
+			_data.value = currentList
+		}
+	}
 }

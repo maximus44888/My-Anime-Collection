@@ -30,13 +30,13 @@ class FavoritesFragment : Fragment() {
 	
 	private fun initialize(saveInstanceState: Bundle?) {
 		val viewModel = ViewModelProvider(requireActivity())[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter(listOf())
+		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) }) { it.isFavorite }
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
 		
 		viewModel.data.observe(viewLifecycleOwner) {
-			adapter.updateItems(it.filter { it.isFavorite })
+			adapter.updateData(it)
 		}
 	}
 }

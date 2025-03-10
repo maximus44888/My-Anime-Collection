@@ -30,13 +30,13 @@ class ListFragment : Fragment() {
 	
 	private fun initialize(saveInstanceState: Bundle?) {
 		val viewModel = ViewModelProvider(requireActivity())[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter(listOf())
+		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) })
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
 		
 		viewModel.data.observe(viewLifecycleOwner) {
-			adapter.updateItems(it)
+			adapter.updateData(it)
 		}
 	}
 	

@@ -7,31 +7,28 @@ import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.data.Item
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.LayoutItemBinding
 
-class ItemAdapter(private var items: List<Item>) :
+class ItemAdapter(
+	private val onFavoriteToggled: (Item) -> Unit,
+	private val predicate: (Item) -> Boolean = { true },
+) :
 	RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 	
-	class ItemViewHolder(binding: LayoutItemBinding) : RecyclerView.ViewHolder(binding.root) {
-		private val image = binding.itemImage
-		private val title = binding.itemTitle
-		private val description = binding.itemDescription
-		private val favButton = binding.itemFavButton
+	private var filteredItems: List<Item> = emptyList()
+	
+	inner class ItemViewHolder(binding: LayoutItemBinding) : RecyclerView.ViewHolder(binding.root) {
+		val image = binding.itemImage
+		val title = binding.itemTitle
+		val description = binding.itemDescription
+		val favButton = binding.itemFavButton
 		
 		fun bind(item: Item) {
 			image.setImageResource(item.image)
 			title.text = item.title
 			description.text = item.description
-			if (item.isFavorite) {
-				favButton.setImageResource(R.drawable.fav_selected)
-			} else {
-				favButton.setImageResource(R.drawable.fav_unselected)
-			}
+			favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
 			favButton.setOnClickListener {
-				item.isFavorite = !item.isFavorite
-				if (item.isFavorite) {
-					favButton.setImageResource(R.drawable.fav_selected)
-				} else {
-					favButton.setImageResource(R.drawable.fav_unselected)
-				}
+				onFavoriteToggled(item)
+				favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
 			}
 		}
 	}
@@ -46,15 +43,13 @@ class ItemAdapter(private var items: List<Item>) :
 	}
 	
 	override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-		holder.bind(items[position])
+		holder.bind(filteredItems[position])
 	}
 	
-	override fun getItemCount(): Int {
-		return items.size
-	}
+	override fun getItemCount() = filteredItems.size
 	
-	fun updateItems(newItems: List<Item>) {
-		items = newItems
+	fun updateData(newData: List<Item>) {
+		filteredItems = newData.filter(predicate)
 		notifyDataSetChanged()
 	}
 }
