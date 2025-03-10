@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -31,31 +31,32 @@ class LoginFragment : Fragment() {
 	}
 	
 	private fun initialize(savedInstanceState: Bundle?) {
-		fun updateLoginSignupIsEnabled() {
-			val isEnabled =
-				!binding.userInput.text.isNullOrBlank() && !binding.passwordInput.text.isNullOrBlank()
-			binding.loginButton.isEnabled = isEnabled
-			binding.signupButton.isEnabled = isEnabled
+		val viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+		
+		binding.userInputLayout.editText?.doAfterTextChanged {
+			viewModel.setUser(it.toString())
 		}
 		
-		fun setupTextInputLayoutError(
-			textInputLayout: TextInputLayout, error: String = getString(R.string.cant_be_empty),
-		) {
-			textInputLayout.editText?.doAfterTextChanged {
-				if (it.isNullOrBlank()) {
-					textInputLayout.error = error
-					textInputLayout.isErrorEnabled = true
-					updateLoginSignupIsEnabled()
-				} else {
-					textInputLayout.error = null
-					textInputLayout.isErrorEnabled = false
-					updateLoginSignupIsEnabled()
-				}
-			}
+		binding.passwordInputLayout.editText?.doAfterTextChanged {
+			viewModel.setPassword(it.toString())
 		}
 		
-		setupTextInputLayoutError(binding.userInputLayout)
-		setupTextInputLayoutError(binding.passwordInputLayout)
+		viewModel.isValid.observe(viewLifecycleOwner) {
+			binding.loginButton.isEnabled = it
+			binding.signupButton.isEnabled = it
+		}
+		
+		viewModel.isValidUser.observe(viewLifecycleOwner) {
+			binding.userInputLayout.error =
+				if (it) null else getString(R.string.cant_be_empty)
+			binding.userInputLayout.isErrorEnabled = !it
+		}
+		
+		viewModel.isValidPassword.observe(viewLifecycleOwner) {
+			binding.passwordInputLayout.error =
+				if (it) null else getString(R.string.cant_be_empty)
+			binding.passwordInputLayout.isErrorEnabled = !it
+		}
 		
 		fun setupButtonSnackbar(
 			button: Button,
@@ -72,7 +73,7 @@ class LoginFragment : Fragment() {
 		
 		binding.loginButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment) }
 		binding.signupButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_signupFragment) }
-		
+
 //		setupButtonSnackbar(binding.loginButton)
 //		setupButtonSnackbar(binding.signupButton)
 		setupButtonSnackbar(binding.forgotPasswordButton)
