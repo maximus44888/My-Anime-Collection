@@ -21,8 +21,8 @@ class LoginViewModel : ViewModel() {
 		_user.value = ""
 		_password.value = ""
 		_isValid.value = false
-		_isValidUser.value = true
-		_isValidPassword.value = true
+		_isValidUser.value = false
+		_isValidPassword.value = false
 	}
 	
 	fun setUser(user: String) {
