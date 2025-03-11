@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1061689315547",
+    "project_id": "my-anime-collection-7ad3f",
+    "storage_bucket": "my-anime-collection-7ad3f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061689315547:android:24fcd847b0ebcb202dbcfe",
+        "android_client_info": {
+          "package_name": "pujalte.martinez.juan.projectosegundaevaluacion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061689315547-ebg6isbqiai5ecoop9glpkavnnr1slr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyJn0KPpeDv48IZCiBXQ22KbPX6NFxg2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061689315547-ebg6isbqiai5ecoop9glpkavnnr1slr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
