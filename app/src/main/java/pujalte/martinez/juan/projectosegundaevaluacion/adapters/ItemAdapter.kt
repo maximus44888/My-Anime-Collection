@@ -23,7 +23,6 @@ class ItemAdapter(
 		val favButton = binding.itemFavButton
 		
 		fun bind(item: Item) {
-			image.setImageResource(item.image)
 			title.text = item.title
 			description.text = item.description
 			favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
