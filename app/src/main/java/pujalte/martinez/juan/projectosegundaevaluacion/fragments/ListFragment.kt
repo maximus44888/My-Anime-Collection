@@ -33,7 +33,7 @@ class ListFragment : Fragment() {
 		val viewModel = ViewModelProvider(
 			requireParentFragment().requireParentFragment()
 		)[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) })
+		val adapter = ItemAdapter(viewModel)
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter

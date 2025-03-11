@@ -33,7 +33,7 @@ class FavoritesFragment : Fragment() {
 		val viewModel = ViewModelProvider(
 			requireParentFragment().requireParentFragment()
 		)[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) }) { it.isFavorite }
+		val adapter = ItemAdapter(viewModel) { it.isFavorite }
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter

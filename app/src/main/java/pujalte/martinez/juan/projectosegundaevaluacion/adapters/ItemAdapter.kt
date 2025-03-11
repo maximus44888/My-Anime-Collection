@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.data.Item
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.LayoutItemBinding
+import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
 
 class ItemAdapter(
-	private val onFavoriteToggled: (Item) -> Unit,
+	private val scaffoldViewModel: ScaffoldViewModel,
 	private val predicate: (Item) -> Boolean = { true },
 ) :
 	RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
@@ -27,7 +28,7 @@ class ItemAdapter(
 			description.text = item.description
 			favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
 			favButton.setOnClickListener {
-				onFavoriteToggled(item)
+				scaffoldViewModel.toggleFavorite(item)
 				favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
 			}
 		}
