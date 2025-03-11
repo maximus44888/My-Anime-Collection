@@ -3,22 +3,41 @@ package pujalte.martinez.juan.projectosegundaevaluacion.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import pujalte.martinez.juan.projectosegundaevaluacion.data.Item
 
-class ScaffoldViewModel(
-	initialData: List<Item> = listOf()
-) : ViewModel() {
-	
+class ScaffoldViewModel : ViewModel() {
 	private val _data = MutableLiveData<List<Item>>(listOf())
 	val data: LiveData<List<Item>> get() = _data
 	
 	init {
-		setData(initialData)
-	}
-	
-	fun setData(items: List<Item>) {
-		_data.value = items
+		viewModelScope.launch {
+			val favorites = Firebase.firestore.collection("usuarios")
+				.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email).get().await()
+				.run {
+					if (isEmpty) {
+						documents.first().get("favorites") as? List<String> ?: listOf()
+					} else {
+						listOf()
+					}
+				}
+			
+			val items = Firebase.firestore.collection("items").get().await().documents.map {
+				Item(
+					it.getString("title") ?: "",
+					it.getString("description") ?: "",
+					it.getString("image") ?: "",
+					favorites.contains(it.getString("title"))
+				)
+			}
+			
+			_data.value = items
+		}
 	}
 	
 	fun toggleFavorite(item: Item) {
@@ -31,17 +50,6 @@ class ScaffoldViewModel(
 				isFavorite = !currentItem.isFavorite
 			)
 			_data.value = currentList
-		}
-	}
-	
-	class Factory(
-		private val initialData: List<Item> = listOf()
-	) : ViewModelProvider.Factory {
-		override fun <T : ViewModel> create(modelClass: Class<T>): T {
-			if (modelClass.isAssignableFrom(ScaffoldViewModel::class.java)) {
-				return ScaffoldViewModel(initialData) as T
-			}
-			throw IllegalArgumentException("Unknown ViewModel class")
 		}
 	}
 }
