@@ -30,7 +30,9 @@ class ListFragment : Fragment() {
 	}
 	
 	private fun initialize(saveInstanceState: Bundle?) {
-		val viewModel = ViewModelProvider(requireActivity())[ScaffoldViewModel::class.java]
+		val viewModel = ViewModelProvider(
+			requireParentFragment().requireParentFragment()
+		)[ScaffoldViewModel::class.java]
 		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) })
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
