@@ -31,7 +31,13 @@ class LoginFragment : Fragment() {
 	}
 	
 	private fun initialize(savedInstanceState: Bundle?) {
-		val viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+		val viewModel = ViewModelProvider(
+			this,
+			LoginViewModel.Factory(
+				binding.userInputLayout.editText?.text.toString(),
+				binding.passwordInputLayout.editText?.text.toString()
+			)
+		)[LoginViewModel::class.java]
 		
 		binding.userInputLayout.editText?.doAfterTextChanged {
 			viewModel.setUser(it.toString())

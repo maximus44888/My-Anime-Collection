@@ -3,8 +3,12 @@ package pujalte.martinez.juan.projectosegundaevaluacion
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+	initialUser: String = "",
+	initialPassword: String = "",
+) : ViewModel() {
 	private val _user = MutableLiveData<String>()
 	private val _password = MutableLiveData<String>()
 	
@@ -18,11 +22,8 @@ class LoginViewModel : ViewModel() {
 	val isValid: LiveData<Boolean> get() = _isValid
 	
 	init {
-		_user.value = ""
-		_password.value = ""
-		_isValid.value = false
-		_isValidUser.value = false
-		_isValidPassword.value = false
+		setUser(initialUser)
+		setPassword(initialPassword)
 	}
 	
 	fun setUser(user: String) {
@@ -47,5 +48,17 @@ class LoginViewModel : ViewModel() {
 	private fun validatePassword() {
 		_isValidPassword.value = !_password.value.isNullOrBlank()
 		validate()
+	}
+	
+	class Factory(
+		private val initialUser: String = "",
+		private val initialPassword: String = "",
+	) : ViewModelProvider.Factory {
+		override fun <T : ViewModel> create(modelClass: Class<T>): T {
+			if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+				return LoginViewModel(initialUser, initialPassword) as T
+			}
+			throw IllegalArgumentException("Unknown ViewModel class")
+		}
 	}
 }
