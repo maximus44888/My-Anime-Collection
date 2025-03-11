@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/navigation_list"
-        android:name="pujalte.martinez.juan.projectosegundaevaluacion.ListFragment"
+        android:name="pujalte.martinez.juan.projectosegundaevaluacion.fragments.ListFragment"
         android:label="List"
         tools:layout="@layout/fragment_list" />
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="pujalte.martinez.juan.projectosegundaevaluacion.FavoritesFragment"
+        android:name="pujalte.martinez.juan.projectosegundaevaluacion.fragments.FavoritesFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/navigation_contact"
-        android:name="pujalte.martinez.juan.projectosegundaevaluacion.ContactFragment"
+        android:name="pujalte.martinez.juan.projectosegundaevaluacion.fragments.ContactFragment"
         android:label="Contact"
         tools:layout="@layout/fragment_contact" />
 </navigation>

@@ -1,4 +1,4 @@
-package pujalte.martinez.juan.projectosegundaevaluacion
+package pujalte.martinez.juan.projectosegundaevaluacion.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +20,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import pujalte.martinez.juan.projectosegundaevaluacion.R
+import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
 import pujalte.martinez.juan.projectosegundaevaluacion.data.Item
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentScaffoldBinding
 

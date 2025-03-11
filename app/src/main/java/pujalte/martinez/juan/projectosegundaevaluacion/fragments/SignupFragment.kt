@@ -1,4 +1,4 @@
-package pujalte.martinez.juan.projectosegundaevaluacion
+package pujalte.martinez.juan.projectosegundaevaluacion.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment() {

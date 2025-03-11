@@ -1,4 +1,4 @@
-package pujalte.martinez.juan.projectosegundaevaluacion
+package pujalte.martinez.juan.projectosegundaevaluacion.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
+import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {

@@ -1,4 +1,4 @@
-package pujalte.martinez.juan.projectosegundaevaluacion
+package pujalte.martinez.juan.projectosegundaevaluacion.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,18 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
 import pujalte.martinez.juan.projectosegundaevaluacion.adapters.ItemAdapter
-import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentListBinding
+import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentFavoritesBinding
 
-class ListFragment : Fragment() {
-	private lateinit var binding: FragmentListBinding
+class FavoritesFragment : Fragment() {
+	private lateinit var binding: FragmentFavoritesBinding
 	
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
 	): View? {
 		// Inflate the layout for this fragment
-		binding = FragmentListBinding.inflate(inflater, container, false)
+		binding = FragmentFavoritesBinding.inflate(inflater, container, false)
 		return binding.root
 	}
 	
@@ -30,7 +31,7 @@ class ListFragment : Fragment() {
 	
 	private fun initialize(saveInstanceState: Bundle?) {
 		val viewModel = ViewModelProvider(requireActivity())[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) })
+		val adapter = ItemAdapter({ viewModel.toggleFavorite(it) }) { it.isFavorite }
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
@@ -39,5 +40,4 @@ class ListFragment : Fragment() {
 			adapter.updateData(it)
 		}
 	}
-	
 }

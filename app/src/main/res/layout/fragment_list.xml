@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ListFragment"
+    tools:context=".fragments.ListFragment"
     tools:listitem="@layout/layout_item">
 
 </androidx.recyclerview.widget.RecyclerView>
