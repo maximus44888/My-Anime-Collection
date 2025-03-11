@@ -44,4 +44,13 @@
     <string name="tokyo_ghoul_description">The suspense horror/dark fantasy story is set in Tokyo, which is haunted by mysterious \"ghouls\" who are devouring humans. People are gripped by the fear of these ghouls whose identities are masked in mystery.</string>
     <string name="death_note_description">Light Yagami is a genius high school student who is about to learn about life through a book of death. When a bored shinigami, a God of Death, drops a black notepad called a Death Note, Light receives power over life and death with the stroke of a pen.</string>
     <string name="attack_on_titan_description">Several hundred years ago, humans were nearly exterminated by titans. Titans are typically several stories tall, seem to have no intelligence, devour human beings and, worst of all, seem to do it for the pleasure rather than as a food source.</string>
+    <string name="hello_signup_fragment">Hello Signup Fragment</string>
+    <string name="button_signup_fragment">Sign up</string>
+    <string name="user_name_navigation_view_header">User</string>
+    <string name="item_list_navigation_view_menus">List</string>
+    <string name="item_favorites_navigation_view_menus">Favorites</string>
+    <string name="item_contact_navigation_view_menus">Contact</string>
+    <string name="item_search_material_toolbar_menu">Search</string>
+    <string name="item_sort_material_toolbar_menu">Sort</string>
+    <string name="item_logout_menu">Log out</string>
 </resources>

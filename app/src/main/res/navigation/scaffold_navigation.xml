@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/navigation_list"
         android:name="pujalte.martinez.juan.projectosegundaevaluacion.fragments.ListFragment"
-        android:label="List"
+        android:label="@string/item_list_navigation_view_menus"
         tools:layout="@layout/fragment_list" />
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="pujalte.martinez.juan.projectosegundaevaluacion.fragments.FavoritesFragment"
-        android:label="Favorites"
+        android:label="@string/item_favorites_navigation_view_menus"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/navigation_contact"
         android:name="pujalte.martinez.juan.projectosegundaevaluacion.fragments.ContactFragment"
-        android:label="Contact"
+        android:label="@string/item_contact_navigation_view_menus"
         tools:layout="@layout/fragment_contact" />
 </navigation>

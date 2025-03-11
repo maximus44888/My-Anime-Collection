@@ -12,7 +12,7 @@
         android:id="@+id/fragment_signup_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Signup Fragment"
+        android:text="@string/hello_signup_fragment"
         app:layout_constraintBottom_toTopOf="@id/fragment_signup_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:id="@+id/fragment_signup_signup_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign up" />
+            android:text="@string/button_signup_fragment" />
 
     </LinearLayout>
 

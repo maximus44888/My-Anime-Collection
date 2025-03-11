@@ -4,18 +4,18 @@
     <item
         android:id="@+id/navigation_list"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="List" />
+        android:title="@string/item_list_navigation_view_menus" />
     <item
         android:id="@+id/navigation_favorites"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="Favorites" />
+        android:title="@string/item_favorites_navigation_view_menus" />
     <item
         android:id="@+id/navigation_contact"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="Contact" />
+        android:title="@string/item_contact_navigation_view_menus" />
     <item
         android:id="@+id/navigation_logout"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="Log out" />
+        android:title="@string/item_logout_menu" />
 
 </menu>

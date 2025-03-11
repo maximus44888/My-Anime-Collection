@@ -4,18 +4,18 @@
 
     <item
         android:id="@+id/material_toolbar_menu_item_search"
-        android:title="Search"
+        android:title="@string/item_search_material_toolbar_menu"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
         android:id="@+id/material_toolbar_menu_item_sort"
-        android:title="Sort"
+        android:title="@string/item_sort_material_toolbar_menu"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/material_toolbar_menu_item_logout"
-        android:title="Log out"
+        android:title="@string/item_logout_menu"
         app:showAsAction="never" />
 
 </menu>
