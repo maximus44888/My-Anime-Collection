@@ -53,10 +53,6 @@ class ScaffoldFragment : Fragment() {
 	private fun setupMaterialToolbar() {
 		(activity as AppCompatActivity).setSupportActionBar(binding.fragmentScaffoldMaterialToolbar)
 		
-		binding.fragmentScaffoldMaterialToolbar.setNavigationOnClickListener {
-			findNavController().navigateUp()
-		}
-		
 		activity?.addMenuProvider(object : MenuProvider {
 			override fun onCreateMenu(
 				menu: Menu,
@@ -92,6 +88,7 @@ class ScaffoldFragment : Fragment() {
 					}
 					
 					R.id.material_toolbar_menu_item_logout -> {
+						FirebaseAuth.getInstance().signOut()
 						findNavController().navigate(R.id.action_scaffoldFragment_to_loginFragment)
 						true
 					}
@@ -117,6 +114,7 @@ class ScaffoldFragment : Fragment() {
 			when (it.itemId) {
 				R.id.navigation_logout -> {
 					binding.fragmentScaffoldDrawerLayout.closeDrawers()
+					FirebaseAuth.getInstance().signOut()
 					findNavController().navigate(R.id.action_scaffoldFragment_to_loginFragment)
 					true
 				}
