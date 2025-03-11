@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -20,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentScaffoldBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
@@ -131,6 +133,12 @@ class ScaffoldFragment : Fragment() {
 		)
 		binding.fragmentScaffoldDrawerLayout.addDrawerListener(toggle)
 		toggle.syncState()
+		
+		val userName = FirebaseAuth.getInstance().currentUser?.email
+		
+		if (userName != null) {
+			binding.fragmentScaffoldNavigationView.getHeaderView(0).findViewById<TextView>(R.id.textViewName).text = userName
+		}
 	}
 	
 	private fun setupBottomNavigationView() {
