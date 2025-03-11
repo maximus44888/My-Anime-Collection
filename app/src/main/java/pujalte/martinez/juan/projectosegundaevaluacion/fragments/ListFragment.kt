@@ -26,10 +26,6 @@ class ListFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		
-		initialize(savedInstanceState)
-	}
-	
-	private fun initialize(saveInstanceState: Bundle?) {
 		val viewModel = ViewModelProvider(
 			requireParentFragment().requireParentFragment()
 		)[ScaffoldViewModel::class.java]
