@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
+import com.google.firebase.auth.FirebaseAuth
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentLoginBinding
+import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment() {
 	private lateinit var binding: FragmentLoginBinding
@@ -79,7 +80,23 @@ class LoginFragment : Fragment() {
 			}
 		}
 		
-		binding.loginButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment) }
+		binding.loginButton.setOnClickListener {
+			FirebaseAuth.getInstance()
+				.signInWithEmailAndPassword(
+					binding.userInput.text.toString(),
+					binding.passwordInput.text.toString()
+				)
+				.addOnSuccessListener {
+					findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+				}
+				.addOnFailureListener {
+					Snackbar.make(
+						binding.root,
+						it.message ?: "Error al iniciar sesion",
+						Snackbar.LENGTH_SHORT
+					).show()
+				}
+		}
 		binding.signupButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_signupFragment) }
 
 //		setupButtonSnackbar(binding.loginButton)
