@@ -8,12 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.auth.FirebaseAuth
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 	private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-	private val navController by lazy { binding.activityMainRoot.findNavController() }
+	private val navController by lazy { (supportFragmentManager.findFragmentById(R.id.activity_main_root) as NavHostFragment).navController }
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 			val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 			insets
+		}
+		
+		if (FirebaseAuth.getInstance().currentUser != null) {
+			navController.navigate(R.id.action_loginFragment_to_scaffoldFragment)
 		}
 	}
 	
