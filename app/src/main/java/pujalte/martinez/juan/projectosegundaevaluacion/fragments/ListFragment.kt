@@ -34,7 +34,7 @@ class ListFragment : Fragment() {
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
 		
-		viewModel.data.observe(viewLifecycleOwner) {
+		viewModel.items.observe(viewLifecycleOwner) {
 			adapter.updateData(it)
 		}
 	}

@@ -12,44 +12,69 @@ import kotlinx.coroutines.tasks.await
 import pujalte.martinez.juan.projectosegundaevaluacion.data.Item
 
 class ScaffoldViewModel : ViewModel() {
-	private val _data = MutableLiveData<List<Item>>(listOf())
-	val data: LiveData<List<Item>> get() = _data
+	private val _items = MutableLiveData<List<Item>>(listOf())
+	val items: LiveData<List<Item>> get() = _items
 	
 	init {
 		viewModelScope.launch {
 			val favorites = Firebase.firestore.collection("usuarios")
 				.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email).get().await()
 				.run {
-					if (isEmpty) {
-						documents.first().get("favorites") as? List<String> ?: listOf()
+					if (!isEmpty) {
+						documents.first().get("favorites") as? List<*>
+							?: listOf<Any>()
 					} else {
-						listOf()
+						listOf<Any>()
 					}
 				}
 			
-			val items = Firebase.firestore.collection("items").get().await().documents.map {
+			_items.value = Firebase.firestore.collection("items").get().await().documents.map {
 				Item(
 					it.getString("title") ?: "",
 					it.getString("description") ?: "",
 					it.getString("image") ?: "",
-					favorites.contains(it.getString("title"))
+					favorites.contains(it.reference)
 				)
 			}
-			
-			_data.value = items
 		}
 	}
 	
 	fun toggleFavorite(item: Item) {
-		val currentList = _data.value?.toMutableList() ?: mutableListOf()
+		val currentList = _items.value?.toMutableList() ?: mutableListOf()
 		val index = currentList.indexOfFirst { it == item }
 		
 		if (index != -1) {
 			val currentItem = currentList[index]
+			val newFavoriteStatus = !currentItem.isFavorite
+			
 			currentList[index] = currentItem.copy(
-				isFavorite = !currentItem.isFavorite
+				isFavorite = newFavoriteStatus
 			)
-			_data.value = currentList
+			
+			viewModelScope.launch {
+				val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: return@launch
+				val userDoc = Firebase.firestore.collection("usuarios")
+					.whereEqualTo("email", userEmail).get().await().documents.firstOrNull()
+					?: return@launch
+				val itemRef = Firebase.firestore.collection("items")
+					.whereEqualTo("title", item.title).get()
+					.await().documents.firstOrNull()?.reference ?: return@launch
+				
+				val newFavorites =
+					(userDoc.get("favorites") as? List<*> ?: listOf<Any>()).let { prevFavorites ->
+						if (newFavoriteStatus) {
+							if (!prevFavorites.contains(itemRef)) prevFavorites + itemRef
+							else prevFavorites
+						} else {
+							prevFavorites.filter { it != itemRef }
+						}
+					}
+				
+				Firebase.firestore.collection("usuarios").document(userDoc.id)
+					.update("favorites", newFavorites)
+			}
 		}
+		
+		_items.value = currentList
 	}
 }
