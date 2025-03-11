@@ -3,12 +3,14 @@ package pujalte.martinez.juan.projectosegundaevaluacion.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.data.Item
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.LayoutItemBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
 
 class ItemAdapter(
+	private val requestManager: RequestManager,
 	private val scaffoldViewModel: ScaffoldViewModel,
 	private val predicate: (Item) -> Boolean = { true },
 ) :
@@ -23,6 +25,9 @@ class ItemAdapter(
 		val favButton = binding.itemFavButton
 		
 		fun bind(item: Item) {
+			requestManager
+				.load(item.image)
+				.into(image)
 			title.text = item.title
 			description.text = item.description
 			favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)

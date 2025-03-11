@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
+import com.bumptech.glide.Glide
 import pujalte.martinez.juan.projectosegundaevaluacion.adapters.ItemAdapter
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentFavoritesBinding
+import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
 
 class FavoritesFragment : Fragment() {
 	private lateinit var binding: FragmentFavoritesBinding
@@ -29,7 +30,7 @@ class FavoritesFragment : Fragment() {
 		val viewModel = ViewModelProvider(
 			requireParentFragment().requireParentFragment()
 		)[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter(viewModel) { it.isFavorite }
+		val adapter = ItemAdapter(Glide.with(this), viewModel) { it.isFavorite }
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
