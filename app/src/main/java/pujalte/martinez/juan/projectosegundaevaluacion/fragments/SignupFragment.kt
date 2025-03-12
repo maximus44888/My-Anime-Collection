@@ -1,5 +1,6 @@
 package pujalte.martinez.juan.projectosegundaevaluacion.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.google.firebase.ktx.Firebase
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentSignupBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class SignupFragment : Fragment() {
 	private lateinit var binding: FragmentSignupBinding
@@ -116,6 +119,25 @@ class SignupFragment : Fragment() {
 						Snackbar.LENGTH_SHORT
 					).show()
 				}
+		}
+		
+		binding.birthdayButton.setOnClickListener {
+			DatePickerDialog(
+				requireContext(),
+				{ _, year, month, day ->
+					Calendar.getInstance().apply {
+						set(year, month, day)
+						viewModel.setBirthday(this)
+					}
+				},
+				Calendar.getInstance().get(Calendar.YEAR),
+				Calendar.getInstance().get(Calendar.MONTH),
+				Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+			).show()
+		}
+		
+		viewModel.birthday.observe(viewLifecycleOwner) {
+			binding.birthdayButton.text = SimpleDateFormat.getDateInstance().format(it.time)
 		}
 		
 		setupButtonSnackbar(binding.googleLoginButton)

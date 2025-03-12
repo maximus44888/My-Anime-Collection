@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import java.util.Calendar
 
 class LoginViewModel(
 	initialUser: String = "",
@@ -14,6 +15,9 @@ class LoginViewModel(
 	
 	private val _password = MutableLiveData<String>()
 	val password: LiveData<String> get() = _password
+	
+	private val _birthday = MutableLiveData<Calendar>()
+	val birthday: LiveData<Calendar> get() = _birthday
 	
 	private val _isValidUser = MutableLiveData<Boolean>()
 	val isValidUser: LiveData<Boolean> get() = _isValidUser
@@ -37,6 +41,10 @@ class LoginViewModel(
 	fun setPassword(password: String) {
 		_password.value = password
 		validatePassword()
+	}
+	
+	fun setBirthday(birthday: Calendar) {
+		_birthday.value = birthday
 	}
 	
 	private fun validate() {

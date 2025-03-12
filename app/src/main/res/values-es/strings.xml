@@ -51,4 +51,5 @@
     <string name="item_contact_navigation_view_menus">Contactos</string>
     <string name="login_fragment_name">Iniciar sesion</string>
     <string name="signup_fragment_name">Registrarse</string>
+    <string name="date_picker_button">Seleccionar fecha de nacimiento</string>
 </resources>

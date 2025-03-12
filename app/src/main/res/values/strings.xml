@@ -55,4 +55,5 @@
     <string name="item_logout_menu">Log out</string>
     <string name="login_fragment_name">Log In</string>
     <string name="signup_fragment_name">Sign Up</string>
+    <string name="date_picker_button">Select Birthday</string>
 </resources>
