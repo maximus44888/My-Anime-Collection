@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.adapters.ItemAdapter
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentListBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewModel
@@ -30,7 +31,17 @@ class ListFragment : Fragment() {
 		val viewModel = ViewModelProvider(
 			requireParentFragment().requireParentFragment()
 		)[ScaffoldViewModel::class.java]
-		val adapter = ItemAdapter(Glide.with(this), viewModel)
+		val adapter = ItemAdapter { holder, item ->
+			Glide.with(this).load(item.image).into(holder.image)
+			holder.title.text = item.title
+			holder.description.text = item.description
+			holder.favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
+			holder.favButton.setOnClickListener {
+				viewModel.toggleFavorite(item)
+				holder.favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
+			}
+		}
+		
 		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
