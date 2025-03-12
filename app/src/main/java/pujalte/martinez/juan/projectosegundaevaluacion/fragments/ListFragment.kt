@@ -42,19 +42,11 @@ class ListFragment : Fragment() {
 			}
 		}
 		
-		
 		binding.rv.layoutManager = LinearLayoutManager(requireContext())
 		binding.rv.adapter = adapter
 		
-		viewModel.filter.observe(viewLifecycleOwner) {
-			adapter.filter = it
-		}
-		viewModel.sort.observe(viewLifecycleOwner) {
-			adapter.sort = it
-		}
-		viewModel.items.observe(viewLifecycleOwner) {
-			adapter.items = it
-		}
+		viewModel.filter.observe(viewLifecycleOwner) { adapter.filter = it }
+		viewModel.sort.observe(viewLifecycleOwner) { adapter.sort = it }
+		viewModel.items.observe(viewLifecycleOwner) { adapter.items = it }
 	}
-	
 }
