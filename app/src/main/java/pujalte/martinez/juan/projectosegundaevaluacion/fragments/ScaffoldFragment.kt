@@ -101,6 +101,7 @@ class ScaffoldFragment : Fragment() {
 					
 					R.id.material_toolbar_menu_item_logout -> {
 						FirebaseAuth.getInstance().signOut()
+						activity?.viewModelStore?.clear()
 						findNavController().navigate(R.id.action_scaffoldFragment_to_loginFragment)
 						true
 					}
