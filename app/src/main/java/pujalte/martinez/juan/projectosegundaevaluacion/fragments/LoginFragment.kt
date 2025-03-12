@@ -97,7 +97,24 @@ class LoginFragment : Fragment() {
 					).show()
 				}
 		}
-		binding.signupButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_signupFragment) }
+//		binding.signupButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_signupFragment) }
+		binding.signupButton.setOnClickListener {
+			FirebaseAuth.getInstance()
+				.createUserWithEmailAndPassword(
+					binding.userInput.text.toString(),
+					binding.passwordInput.text.toString()
+				)
+				.addOnSuccessListener {
+					findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+				}
+				.addOnFailureListener {
+					Snackbar.make(
+						binding.root,
+						it.message ?: "Error al crear usuario",
+						Snackbar.LENGTH_SHORT
+					).show()
+				}
+		}
 
 //		setupButtonSnackbar(binding.loginButton)
 //		setupButtonSnackbar(binding.signupButton)
