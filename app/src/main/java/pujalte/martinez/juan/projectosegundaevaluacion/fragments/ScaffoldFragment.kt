@@ -29,12 +29,13 @@ import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewMo
 class ScaffoldFragment : Fragment() {
 	private lateinit var binding: FragmentScaffoldBinding
 	private val navController by lazy { (childFragmentManager.findFragmentById(R.id.fragment_scaffold_fragment_container_view) as NavHostFragment).navController }
+	private val scaffoldViewModel by lazy { ViewModelProvider(this)[ScaffoldViewModel::class.java] }
 	
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
 	): View? {
-		ViewModelProvider(this)[ScaffoldViewModel::class.java]
+		scaffoldViewModel
 		// Inflate the layout for this fragment
 		binding = FragmentScaffoldBinding.inflate(inflater, container, false)
 		return binding.root
@@ -70,6 +71,16 @@ class ScaffoldFragment : Fragment() {
 					
 					override fun onQueryTextChange(newText: String?): Boolean {
 						Log.d("ScaffoldFragment", "Search query changed: $newText")
+						if (newText == null) {
+							scaffoldViewModel.setFilter { true }
+						} else {
+							scaffoldViewModel.setFilter {
+								it.title.contains(
+									newText,
+									ignoreCase = true
+								)
+							}
+						}
 						return true
 					}
 				})
@@ -135,7 +146,8 @@ class ScaffoldFragment : Fragment() {
 		val userName = FirebaseAuth.getInstance().currentUser?.email
 		
 		if (userName != null) {
-			binding.fragmentScaffoldNavigationView.getHeaderView(0).findViewById<TextView>(R.id.textViewName).text = userName
+			binding.fragmentScaffoldNavigationView.getHeaderView(0)
+				.findViewById<TextView>(R.id.textViewName).text = userName
 		}
 	}
 	

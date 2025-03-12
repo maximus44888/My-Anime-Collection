@@ -12,11 +12,27 @@ import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.ScaffoldViewMo
 class ItemAdapter(
 	private val requestManager: RequestManager,
 	private val scaffoldViewModel: ScaffoldViewModel,
-	private val predicate: (Item) -> Boolean = { true },
-) :
-	RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-	
-	private var filteredItems: List<Item> = emptyList()
+	private val permanentPredicate: (Item) -> Boolean = { true },
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+	var filter: (Item) -> Boolean = { true }
+		set(value) {
+			field = value
+			notifyDataSetChanged()
+		}
+	var sort: Comparator<Item> = compareBy { it.title }
+		set(value) {
+			field = value
+			notifyDataSetChanged()
+		}
+	var items: List<Item> =
+		scaffoldViewModel.items.value ?: listOf()
+		get() {
+			return field.filter(permanentPredicate).filter(filter).sortedWith(sort)
+		}
+		set(value) {
+			field = value
+			notifyDataSetChanged()
+		}
 	
 	inner class ItemViewHolder(binding: LayoutItemBinding) : RecyclerView.ViewHolder(binding.root) {
 		val image = binding.itemImage
@@ -25,9 +41,7 @@ class ItemAdapter(
 		val favButton = binding.itemFavButton
 		
 		fun bind(item: Item) {
-			requestManager
-				.load(item.image)
-				.into(image)
+			requestManager.load(item.image).into(image)
 			title.text = item.title
 			description.text = item.description
 			favButton.setImageResource(if (item.isFavorite) R.drawable.fav_selected else R.drawable.fav_unselected)
@@ -48,13 +62,8 @@ class ItemAdapter(
 	}
 	
 	override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-		holder.bind(filteredItems[position])
+		holder.bind(items[position])
 	}
 	
-	override fun getItemCount() = filteredItems.size
-	
-	fun updateData(newData: List<Item>) {
-		filteredItems = newData.filter(predicate)
-		notifyDataSetChanged()
-	}
+	override fun getItemCount() = items.size
 }

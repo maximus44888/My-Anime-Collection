@@ -15,6 +15,12 @@ class ScaffoldViewModel : ViewModel() {
 	private val _items = MutableLiveData<List<Item>>(listOf())
 	val items: LiveData<List<Item>> get() = _items
 	
+	private var _filter : MutableLiveData<(Item) -> Boolean> = MutableLiveData { true }
+	val filter : LiveData<(Item) -> Boolean> get() = _filter
+	
+	private var _sort : MutableLiveData<Comparator<Item>> = MutableLiveData(compareBy { it.title })
+	val sort : LiveData<Comparator<Item>> get() = _sort
+	
 	init {
 		viewModelScope.launch {
 			val favorites = Firebase.firestore.collection("usuarios")
@@ -37,6 +43,14 @@ class ScaffoldViewModel : ViewModel() {
 				)
 			}
 		}
+	}
+	
+	fun setFilter(newFilter: (Item) -> Boolean) {
+		_filter.value = newFilter
+	}
+	
+	fun setSort(newSort: Comparator<Item>) {
+		_sort.value = newSort
 	}
 	
 	fun toggleFavorite(item: Item) {
