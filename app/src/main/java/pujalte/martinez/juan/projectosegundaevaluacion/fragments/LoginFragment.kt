@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentLoginBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
@@ -89,7 +91,45 @@ class LoginFragment : Fragment() {
 					viewModel.password.value ?: ""
 				)
 				.addOnSuccessListener {
-					findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+					Firebase.firestore.collection("usuarios")
+						.whereEqualTo("email", viewModel.user.value).get()
+						.addOnSuccessListener {
+							if (!it.isEmpty) {
+								findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+								return@addOnSuccessListener
+							}
+							Firebase.firestore.collection("usuarios").add(
+								hashMapOf(
+									"email" to (viewModel.user.value ?: ""),
+									"birthday" to viewModel.birthday.value?.timeInMillis,
+									"favorites" to listOf<Any>()
+								)
+							).addOnSuccessListener {
+								findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+							}.addOnFailureListener {
+								Snackbar.make(
+									binding.root,
+									it.message ?: "Error al crear usuario",
+									Snackbar.LENGTH_SHORT
+								).show()
+							}
+						}.addOnFailureListener {
+							Firebase.firestore.collection("usuarios").add(
+								hashMapOf(
+									"email" to (viewModel.user.value ?: ""),
+									"birthday" to viewModel.birthday.value?.timeInMillis,
+									"favorites" to listOf<Any>()
+								)
+							).addOnSuccessListener {
+								findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+							}.addOnFailureListener {
+								Snackbar.make(
+									binding.root,
+									it.message ?: "Error al crear usuario",
+									Snackbar.LENGTH_SHORT
+								).show()
+							}
+						}
 				}
 				.addOnFailureListener {
 					Snackbar.make(
