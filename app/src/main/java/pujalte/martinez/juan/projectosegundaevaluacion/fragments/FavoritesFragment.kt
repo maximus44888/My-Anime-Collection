@@ -53,5 +53,10 @@ class FavoritesFragment : Fragment() {
 			binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
 			binding.rv.visibility = if (it) View.GONE else View.VISIBLE
 		}
+		
+		binding.swipeRefresh.setOnRefreshListener {
+			viewModel.loadData()
+			binding.swipeRefresh.isRefreshing = false
+		}
 	}
 }
