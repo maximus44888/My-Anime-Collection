@@ -156,4 +156,10 @@ class ScaffoldFragment : Fragment() {
 	private fun setupBottomNavigationView() {
 		binding.fragmentScaffoldBottomNavigationView.setupWithNavController(navController)
 	}
+	
+	override fun onResume() {
+		super.onResume()
+		
+		scaffoldViewModel.loadData()
+	}
 }
