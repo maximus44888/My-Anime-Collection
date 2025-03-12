@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentLoginBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
@@ -103,11 +105,23 @@ class LoginFragment : Fragment() {
 				.createUserWithEmailAndPassword(
 					binding.userInput.text.toString(),
 					binding.passwordInput.text.toString()
-				)
-				.addOnSuccessListener {
-					findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
-				}
-				.addOnFailureListener {
+				).addOnSuccessListener {
+					Firebase.firestore.collection("usuarios").add(
+						hashMapOf(
+							"email" to binding.userInput.text.toString(),
+							"favorites" to listOf<Any>()
+						)
+					).addOnSuccessListener {
+						findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
+					}.addOnFailureListener {
+						Snackbar.make(
+							binding.root,
+							it.message ?: "Error al crear usuario",
+							Snackbar.LENGTH_SHORT
+						).show()
+						FirebaseAuth.getInstance().currentUser?.delete()
+					}
+				}.addOnFailureListener {
 					Snackbar.make(
 						binding.root,
 						it.message ?: "Error al crear usuario",
