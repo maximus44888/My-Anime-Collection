@@ -53,4 +53,6 @@
     <string name="item_search_material_toolbar_menu">Search</string>
     <string name="item_sort_material_toolbar_menu">Sort</string>
     <string name="item_logout_menu">Log out</string>
+    <string name="login_fragment_name">Log In</string>
+    <string name="signup_fragment_name">Sign Up</string>
 </resources>

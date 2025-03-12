@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import pujalte.martinez.juan.projectosegundaevaluacion.R
 import pujalte.martinez.juan.projectosegundaevaluacion.databinding.FragmentLoginBinding
 import pujalte.martinez.juan.projectosegundaevaluacion.viewmodels.LoginViewModel
@@ -37,12 +35,15 @@ class LoginFragment : Fragment() {
 	
 	private fun initialize(savedInstanceState: Bundle?) {
 		val viewModel = ViewModelProvider(
-			this,
+			requireActivity(),
 			LoginViewModel.Factory(
-				binding.userInputLayout.editText?.text.toString(),
-				binding.passwordInputLayout.editText?.text.toString()
+				binding.userInput.text.run { if (isNullOrBlank()) "" else toString() },
+				binding.passwordInput.text.run { if (isNullOrBlank()) "" else toString() }
 			)
 		)[LoginViewModel::class.java]
+		
+		binding.userInput.setText(viewModel.user.value)
+		binding.passwordInput.setText(viewModel.password.value)
 		
 		binding.userInputLayout.editText?.doAfterTextChanged {
 			viewModel.setUser(it.toString())
@@ -54,7 +55,6 @@ class LoginFragment : Fragment() {
 		
 		viewModel.isValid.observe(viewLifecycleOwner) {
 			binding.loginButton.isEnabled = it
-			binding.signupButton.isEnabled = it
 		}
 		
 		viewModel.isValidUser.observe(viewLifecycleOwner) {
@@ -99,39 +99,11 @@ class LoginFragment : Fragment() {
 					).show()
 				}
 		}
-//		binding.signupButton.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_signupFragment) }
+		
 		binding.signupButton.setOnClickListener {
-			FirebaseAuth.getInstance()
-				.createUserWithEmailAndPassword(
-					binding.userInput.text.toString(),
-					binding.passwordInput.text.toString()
-				).addOnSuccessListener {
-					Firebase.firestore.collection("usuarios").add(
-						hashMapOf(
-							"email" to binding.userInput.text.toString(),
-							"favorites" to listOf<Any>()
-						)
-					).addOnSuccessListener {
-						findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
-					}.addOnFailureListener {
-						Snackbar.make(
-							binding.root,
-							it.message ?: "Error al crear usuario",
-							Snackbar.LENGTH_SHORT
-						).show()
-						FirebaseAuth.getInstance().currentUser?.delete()
-					}
-				}.addOnFailureListener {
-					Snackbar.make(
-						binding.root,
-						it.message ?: "Error al crear usuario",
-						Snackbar.LENGTH_SHORT
-					).show()
-				}
+			findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
 		}
-
-//		setupButtonSnackbar(binding.loginButton)
-//		setupButtonSnackbar(binding.signupButton)
+		
 		setupButtonSnackbar(binding.forgotPasswordButton)
 		setupButtonSnackbar(binding.googleLoginButton)
 		setupButtonSnackbar(binding.facebookLoginButton)

@@ -10,7 +10,10 @@ class LoginViewModel(
 	initialPassword: String = "",
 ) : ViewModel() {
 	private val _user = MutableLiveData<String>()
+	val user: LiveData<String> get() = _user
+	
 	private val _password = MutableLiveData<String>()
+	val password: LiveData<String> get() = _password
 	
 	private val _isValidUser = MutableLiveData<Boolean>()
 	val isValidUser: LiveData<Boolean> get() = _isValidUser

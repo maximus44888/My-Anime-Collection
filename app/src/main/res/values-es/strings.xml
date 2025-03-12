@@ -49,4 +49,6 @@
     <string name="item_list_navigation_view_menus">Lista</string>
     <string name="item_favorites_navigation_view_menus">Favoritos</string>
     <string name="item_contact_navigation_view_menus">Contactos</string>
+    <string name="login_fragment_name">Iniciar sesion</string>
+    <string name="signup_fragment_name">Registrarse</string>
 </resources>

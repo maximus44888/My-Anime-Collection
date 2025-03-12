@@ -19,6 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
 
+    <TextView
+        android:id="@+id/fragment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_fragment_name"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.040" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userInputLayout"
         android:layout_width="match_parent"
@@ -95,7 +107,7 @@
             android:id="@+id/signupButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="false"
+            android:enabled="true"
             android:minWidth="150dp"
             android:text="@string/signupButton"
             app:layout_constraintBottom_toBottomOf="parent"
