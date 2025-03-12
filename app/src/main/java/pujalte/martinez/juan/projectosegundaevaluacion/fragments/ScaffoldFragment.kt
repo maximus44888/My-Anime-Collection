@@ -95,6 +95,7 @@ class ScaffoldFragment : Fragment() {
 					
 					R.id.material_toolbar_menu_item_sort -> {
 						Log.d("ScaffoldFragment", "Sort button clicked")
+						scaffoldViewModel.toggleSort()
 						true
 					}
 					

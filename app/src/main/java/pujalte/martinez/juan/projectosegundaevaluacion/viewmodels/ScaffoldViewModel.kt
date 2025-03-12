@@ -21,6 +21,8 @@ class ScaffoldViewModel : ViewModel() {
 	private var _sort : MutableLiveData<Comparator<Item>> = MutableLiveData(compareBy { it.title })
 	val sort : LiveData<Comparator<Item>> get() = _sort
 	
+	private var isSortAscending = true
+	
 	init {
 		viewModelScope.launch {
 			val favorites = Firebase.firestore.collection("usuarios")
@@ -51,6 +53,11 @@ class ScaffoldViewModel : ViewModel() {
 	
 	fun setSort(newSort: Comparator<Item>) {
 		_sort.value = newSort
+	}
+	
+	fun toggleSort() {
+		isSortAscending = !isSortAscending
+		_sort.value = if (isSortAscending) compareBy { it.title } else compareByDescending { it.title }
 	}
 	
 	fun toggleFavorite(item: Item) {
