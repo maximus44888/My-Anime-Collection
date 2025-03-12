@@ -94,12 +94,14 @@ class SignupFragment : Fragment() {
 		binding.signupButton.setOnClickListener {
 			FirebaseAuth.getInstance()
 				.createUserWithEmailAndPassword(
-					binding.userInput.text.toString(),
-					binding.passwordInput.text.toString()
+					viewModel.user.value ?: "",
+					viewModel.password.value ?: ""
 				).addOnSuccessListener {
 					Firebase.firestore.collection("usuarios").add(
 						hashMapOf(
-							"email" to binding.userInput.text.toString(),
+							"email" to (viewModel.user.value ?: ""),
+							"birthday" to (viewModel.birthday.value?.timeInMillis
+								?: Calendar.getInstance().timeInMillis),
 							"favorites" to listOf<Any>()
 						)
 					).addOnSuccessListener {

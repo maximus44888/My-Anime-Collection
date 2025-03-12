@@ -85,8 +85,8 @@ class LoginFragment : Fragment() {
 		binding.loginButton.setOnClickListener {
 			FirebaseAuth.getInstance()
 				.signInWithEmailAndPassword(
-					binding.userInput.text.toString(),
-					binding.passwordInput.text.toString()
+					viewModel.user.value ?: "",
+					viewModel.password.value ?: ""
 				)
 				.addOnSuccessListener {
 					findNavController().navigate(R.id.action_loginFragment_to_scaffoldFragment)
