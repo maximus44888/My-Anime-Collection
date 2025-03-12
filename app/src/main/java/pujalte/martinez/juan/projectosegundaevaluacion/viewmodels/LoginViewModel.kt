@@ -16,7 +16,7 @@ class LoginViewModel(
 	private val _password = MutableLiveData<String>()
 	val password: LiveData<String> get() = _password
 	
-	private val _birthday = MutableLiveData<Calendar>()
+	private val _birthday = MutableLiveData<Calendar>(Calendar.getInstance())
 	val birthday: LiveData<Calendar> get() = _birthday
 	
 	private val _isValidUser = MutableLiveData<Boolean>()
