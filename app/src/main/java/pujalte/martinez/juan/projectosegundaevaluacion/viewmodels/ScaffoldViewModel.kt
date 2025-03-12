@@ -23,8 +23,17 @@ class ScaffoldViewModel : ViewModel() {
 	
 	private var isSortAscending = true
 	
+	private var _isLoading = MutableLiveData(true)
+	val isLoading: LiveData<Boolean> get() = _isLoading
+	
 	init {
+		loadData()
+	}
+	
+	fun loadData() {
 		viewModelScope.launch {
+			_isLoading.value = true
+			
 			val favorites = Firebase.firestore.collection("usuarios")
 				.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email).get().await()
 				.run {
@@ -44,6 +53,8 @@ class ScaffoldViewModel : ViewModel() {
 					favorites.contains(it.reference)
 				)
 			}
+			
+			_isLoading.value = false
 		}
 	}
 	

@@ -48,5 +48,10 @@ class FavoritesFragment : Fragment() {
 		viewModel.filter.observe(viewLifecycleOwner) { adapter.filter = it }
 		viewModel.sort.observe(viewLifecycleOwner) { adapter.sort = it }
 		viewModel.items.observe(viewLifecycleOwner) { adapter.items = it }
+		
+		viewModel.isLoading.observe(viewLifecycleOwner) {
+			binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+			binding.rv.visibility = if (it) View.GONE else View.VISIBLE
+		}
 	}
 }
